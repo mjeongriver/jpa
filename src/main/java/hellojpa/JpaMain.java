@@ -17,17 +17,26 @@ public class JpaMain {
         tx.begin();
 
         try {
-            //    Member findMember = em.find(Member.class, 1L);
-            //    System.out.println("findMember.id = " + findMember.getId());
-            //    System.out.println("findMember.name = " + findMember.getName());
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10)
-                    .getResultList();
+//          Member findMember = em.find(Member.class, 1L);
+//          System.out.println("findMember.id = " + findMember.getId());
+//          System.out.println("findMember.name = " + findMember.getName());
+//          List<Member> result = em.createQuery("select m from Member as m", Member.class)
+//                    .setFirstResult(1)
+//                    .setMaxResults(10)
+//                    .getResultList();
+//
+//            for (Member member : result) {
+//                System.out.println("member.name = " + member.getName());
+//            }
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJPA");
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+            //영속
+            System.out.println("=== BEFORE ===");
+            em.persist(member); //db에 저장되지 않은 상태
+            em.detach(member); //영속성 컨텍스트에서 분리
+            System.out.println("=== AFTER ===");
 
             tx.commit();
         } catch (Exception e) {
