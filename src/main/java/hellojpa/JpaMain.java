@@ -17,37 +17,17 @@ public class JpaMain {
         tx.begin();
 
         try {
-//          Member findMember = em.find(Member.class, 1L);
-//          System.out.println("findMember.id = " + findMember.getId());
-//          System.out.println("findMember.name = " + findMember.getName());
-//          List<Member> result = em.createQuery("select m from Member as m", Member.class)
-//                    .setFirstResult(1)
-//                    .setMaxResults(10)
-//                    .getResultList();
-//
-//            for (Member member : result) {
-//                System.out.println("member.name = " + member.getName());
-//            }
-            Member member = new Member();
-            member.setId(101L);
-            member.setName("HelloJPA");
 
             //영속
-            System.out.println("=== BEFORE ===");
-            em.persist(member); //db에 저장되지 않은 상태
-            //em.detach(member); //영속성 컨텍스트에서 분리
-            System.out.println("=== AFTER ===");
+            //Member member1 = new Member(150L, "A");
+            //Member member2 = new Member(160L, "B");
 
+            //변경 감지: jpa는 값을 바꾸면 트랜잭션이 커밋되는 시점에 변경을 반영한다.
+            Member member = em.find(Member.class, 150L);
+            member.setName("ZZZZZ");
 
-            Member findMember1 = em.find(Member.class, 101L);
-            Member findMember2 = em.find(Member.class, 101L);
-
-            //동일성 보장
-            System.out.println("findMember1 == findMember2: " + (findMember1 == findMember2));
-
-            //select 쿼리가 나가지 않음, 1차 캐시에서 조회
-            //System.out.println(findMember.getId());
-            //System.out.println(findMember.getName());
+            //em.persist(member);
+            System.out.println("=====================");
 
             tx.commit();
         } catch (Exception e) {
