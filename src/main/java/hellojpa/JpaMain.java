@@ -23,13 +23,19 @@ public class JpaMain {
             //Member member2 = new Member(160L, "B");
 
             //변경 감지: jpa는 값을 바꾸면 트랜잭션이 커밋되는 시점에 변경을 반영한다.
-            Member member = new Member(200L, "member200");
-            em.persist(member);
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAA");
 
-            //영속성 컨텍스트를 비우지 않고, 변경 내용을 데이터베이스에 동기화
-            em.flush();
+            //준영속 상태로 만들기
+            //em.detach(member);
+            em.clear(); //영속성 컨텍스트를 완전히 초기화
+            //em.close(); //영속성 컨텍스트를 완전히 종료
 
+            Member member2 = em.find(Member.class, 150L);
+
+            //em.persist(member);
             System.out.println("=====================");
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
