@@ -18,23 +18,12 @@ public class JpaMain {
 
         try {
 
-            //영속
-            //Member member1 = new Member(150L, "A");
-            //Member member2 = new Member(160L, "B");
+            Member member = new Member();
+            member.setId(2L);
+            member.setUsername("A");
+            member.setRoleType(RoleType.USER);
 
-            //변경 감지: jpa는 값을 바꾸면 트랜잭션이 커밋되는 시점에 변경을 반영한다.
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
-
-            //준영속 상태로 만들기
-            //em.detach(member);
-            em.clear(); //영속성 컨텍스트를 완전히 초기화
-            //em.close(); //영속성 컨텍스트를 완전히 종료
-
-            Member member2 = em.find(Member.class, 150L);
-
-            //em.persist(member);
-            System.out.println("=====================");
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {
@@ -42,7 +31,6 @@ public class JpaMain {
         } finally {
             em.close();
         }
-
         emf.close();
     }
 }
