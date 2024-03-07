@@ -1,16 +1,21 @@
 package hellojpa;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "MBR") //db에 있는 table의
+@Table(name = "MBR")
 public class Member {
 
     @Id
     private Long id;
+
+    //DDL을 자동 생성할 때만 사용 되고 실행 로직에는 영향을 주지 않는다.
+    @Column(unique = true, length = 10)
     private String name;
+    private int age;
 
     //기본 생성자
     public Member() {
