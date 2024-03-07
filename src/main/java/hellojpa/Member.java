@@ -2,8 +2,10 @@ package hellojpa;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "MBR") //db에 있는 table의
 public class Member {
 
     @Id
