@@ -7,10 +7,14 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "MBR")
+@SequenceGenerator(
+        name = "member_seq_generator",
+        sequenceName = "member_seq", //매핑할 데이터베이스 시퀀스 이름
+        initialValue = 1, allocationSize = 50) //시퀀스 한 번 호출에 증가하는 수
 public class Member {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
     private Long id;
 
     @Column(name = "name", nullable = false) //db에 있는 이름이 name
